@@ -65,6 +65,10 @@ p:last-child{margin-bottom:0}
 [id]{scroll-margin-top:4rem}
 .cab{position:relative;text-align:center;max-width:34rem;margin:0 auto 2.8rem}
 .cab .banda{width:min(100%,30rem);height:auto;margin:0 auto 1.4rem}
+.motivo{width:clamp(110px,34vw,170px);height:auto;margin:0 auto 1.2rem}
+.corona{position:relative;width:clamp(150px,44vw,210px);margin:0 auto 1.6rem}
+.corona img{width:100%;height:auto}
+.corona span{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--display);color:var(--olive);font-size:clamp(1.3rem,6vw,1.8rem);letter-spacing:.06em}
 .num{display:block;font-family:var(--ui);font-size:.8rem;letter-spacing:.42em;text-indent:.42em;color:var(--rosa);margin-bottom:.6rem}
 .title{font-family:var(--display);font-weight:500;font-size:clamp(2rem,8.6vw,2.9rem);color:var(--olive);text-align:center}
 .sub{font-family:var(--script);font-size:clamp(1.8rem,7.6vw,2.4rem);line-height:1.2;color:var(--rosa);margin:1.1rem 0 0}
@@ -375,6 +379,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="historia" style="background:var(--cream)">
   <div class="cab rv">
+    <img class="motivo" src="img/deco/palomas.webp" alt="" loading="lazy">
     <span class="num">01</span>
     <h2 class="title">Nuestra historia</h2>
     <p class="sub">Cómo empezó todo</p>
@@ -390,6 +395,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="boda">
   <div class="narrow">
+    <img class="motivo rv" src="img/deco/anillos.webp" alt="" loading="lazy">
     <p class="script rv">Nos casamos</p>
     <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
     <p class="lede rv d1">Hay momentos en la vida que merecen ser compartidos con las personas que más queremos.</p>
@@ -409,6 +415,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="dia" style="background:var(--cream)">
   <div class="cab rv">
+    <img class="motivo" src="img/deco/copas.webp" alt="" loading="lazy">
     <span class="num">02</span>
     <h2 class="title">El día</h2>
     <p class="sub">El programa</p>
@@ -466,6 +473,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="galeria" style="background:var(--cream)">
   <div class="cab rv">
+    <img class="motivo" src="img/deco/corazon.webp" alt="" loading="lazy">
     <span class="num">04</span>
     <h2 class="title">Nosotros</h2>
     <p class="sub">Algunos recuerdos</p>
@@ -492,6 +500,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="info">
   <div class="cab rv">
+    <img class="motivo" src="img/deco/ramo.webp" alt="" loading="lazy">
     <span class="num">05</span>
     <h2 class="title">Información</h2>
     <p class="sub">Lo que conviene saber</p>
@@ -514,6 +523,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section rsvp" id="confirmar">
   <div class="narrow">
+    <img class="motivo rv" src="img/deco/sobre.webp" alt="" loading="lazy">
     <p class="script rv">Esperamos contar contigo</p>
     <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
     <p class="lede rv d1">Tu confirmación es muy importante para nosotros. Dinos si podrás acompañarnos en este día tan especial.</p>
@@ -531,6 +541,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section">
   <div class="cab rv">
+    <img class="motivo" src="img/deco/vid.webp" alt="" loading="lazy">
     <span class="num">06</span>
     <h2 class="title">Antes de irte</h2>
     <p class="sub">Un par de cosas más</p>
@@ -544,6 +555,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 </section>
 
 <footer>
+  <div class="corona rv"><img src="img/deco/corona.webp" alt="" loading="lazy"><span>A&amp;J</span></div>
   <p class="names rv">Andrea &amp; Javier</p>
   <p class="rv d1" style="letter-spacing:.28em;font-family:var(--display);color:var(--sage);font-size:.9rem">25 · 09 · 2027</p>
   <p class="thanks rv d2">Gracias por acompañarnos</p>
