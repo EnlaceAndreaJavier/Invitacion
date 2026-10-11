@@ -98,8 +98,8 @@ p:last-child{margin-bottom:0}
   box-shadow:0 30px 60px -40px rgba(57,67,46,.6);
   overflow:hidden;
 }
-.portrait,.villa{position:relative}
-.portrait img,.villa img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait{position:relative}
+.portrait img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ph{font-family:var(--ui);font-size:.72rem;letter-spacing:.12em;color:var(--sage);text-transform:uppercase;padding:0 1rem}
 .hero h1{font-family:var(--display);color:var(--olive);letter-spacing:.16em;font-size:clamp(2rem,9.5vw,3.6rem);text-transform:uppercase}
 .hero .amp{display:block;font-family:var(--script);text-transform:none;color:var(--gold);font-size:clamp(2.2rem,9vw,3rem);letter-spacing:0;margin:.1em 0}
@@ -135,7 +135,9 @@ p:last-child{margin-bottom:0}
   padding:clamp(1.6rem,6vw,2.4rem);max-width:34rem;margin:0 auto;text-align:center;
   box-shadow:0 24px 50px -44px rgba(57,67,46,.8);
 }
-.villa{width:100%;max-width:22rem;margin:0 auto 1.4rem;aspect-ratio:16/10;border-radius:4px;background:linear-gradient(150deg,#E9E4D6,#DDD8C6);display:grid;place-content:center;border:1px solid var(--line);overflow:hidden}
+.villa{width:100%;max-width:22rem;min-height:8rem;margin:0 auto 1.4rem;border-radius:4px;background:linear-gradient(150deg,#E9E4D6,#DDD8C6);display:grid;place-items:center;border:1px solid var(--line);overflow:hidden}
+.villa>*{grid-area:1/1}
+.villa img{width:100%;height:auto}
 .card .venue{font-family:var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-size:1.15rem}
 .card address{font-style:normal;color:var(--sage);margin:.9rem 0 1.6rem;font-size:1rem}
 .btn{
@@ -153,18 +155,19 @@ p:last-child{margin-bottom:0}
 .btn-row{display:flex;flex-wrap:wrap;gap:.8rem;justify-content:center}
 
 /* ---------- galería ---------- */
-.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;max-width:56rem;margin:0 auto}
+.gallery{display:grid;grid-template-columns:repeat(12,1fr);gap:.8rem;max-width:36rem;margin:0 auto;align-items:start}
 .gallery button{
   padding:0;border:1px solid var(--line);overflow:hidden;background:linear-gradient(150deg,#E9E4D6,#D9D3C2);
   display:grid;place-content:center;position:relative;transition:opacity .3s ease;
 }
 .gallery button:hover{opacity:.88}
-.g1{aspect-ratio:3/4}
-.g2{aspect-ratio:3/4;margin-top:2.2rem}
-.g3{grid-column:1/-1;aspect-ratio:16/10}
-.g4{aspect-ratio:1}
-.g5{aspect-ratio:1}
-.g6{grid-column:1/-1;aspect-ratio:3/2}
+.gallery button{aspect-ratio:3/4}
+.g1{order:1;grid-column:1/9}
+.g2{order:2;grid-column:6/13;margin-top:-5.5rem;z-index:1;border:6px solid var(--paper);box-shadow:0 18px 34px -20px rgba(57,67,46,.7)}
+.gallery .g6{order:3;grid-column:1/-1;aspect-ratio:16/9;margin-top:.6rem}
+.g3{order:4;grid-column:1/7}
+.g4{order:5;grid-column:7/13;margin-top:2.6rem}
+.g5{order:6;grid-column:3/11;margin-top:1.4rem;outline:1px solid var(--gold-soft);outline-offset:7px}
 
 .lightbox{position:fixed;inset:0;z-index:60;background:rgba(31,37,25,.94);display:none;place-items:center;padding:1rem}
 .lightbox.open{display:grid}
@@ -454,7 +457,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
     <p class="sub">El lugar</p>
   </div>
   <div class="card rv d1">
-    <div class="villa"><p class="ph">Foto del lugar<br>img/bodega.jpg · 16:10</p><img src="img/bodega.jpg" alt="Bodega La Venta" loading="lazy" onerror="this.remove()"></div>
+    <div class="villa"><p class="ph">Foto del lugar<br>img/bodega.jpg</p><img src="img/bodega.jpg" alt="Bodega La Venta" loading="lazy" onerror="this.remove()"></div>
     <p class="venue">Bodega La Venta</p>
     <address>
       Carretera Nacional 301 (N-301), km 189<br>
