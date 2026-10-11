@@ -297,14 +297,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   .sobre.abierto .lazo,.sobre.abierto .izq,.sobre.abierto .der{transform:none}
 }
 
-/* ---------- historia ---------- */
-.story{display:grid;gap:2.6rem;max-width:34rem;margin:0 auto}
-.chapter{display:grid;gap:.3rem;padding-left:1.6rem;border-left:1px solid var(--line)}
-.chapter .when{font-family:var(--ui);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-.chapter h3{font-family:var(--display);color:var(--olive);font-size:1.15rem;letter-spacing:.04em}
-.chapter p{color:var(--sage);font-size:1rem;margin:0}
-
-
 @media (min-width:760px){
   .hero{grid-template-rows:1fr auto}
   .hero-inner{grid-template-columns:1fr auto;align-items:center;gap:clamp(2rem,6vw,5rem);text-align:left;justify-items:start}
@@ -358,7 +350,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Navegación">
   <button class="close" id="menuClose" aria-label="Cerrar el menú"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <a href="#inicio">Inicio</a>
-  <a href="#historia">Nuestra historia</a>
   <a href="#boda">La boda</a>
   <a href="#ubicacion">Ubicación</a>
   <a href="#galeria">Galería</a>
@@ -379,22 +370,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
   <div class="scroll-hint rv d4"><span></span>Desliza</div>
 </header>
-
-<section class="section" id="historia" style="background:var(--cream)">
-  <div class="cab rv">
-    <img class="motivo" src="img/deco/palomas.webp" alt="" loading="lazy">
-    <span class="num">01</span>
-    <h2 class="title">Nuestra historia</h2>
-    <p class="sub">Cómo empezó todo</p>
-  </div>
-  <div class="story">
-    <div class="chapter rv"><span class="when">AÑO</span><h3>Nos conocimos</h3><p>SUSTITUIR: dos líneas contando cómo os conocisteis.</p></div>
-    <div class="chapter rv d1"><span class="when">AÑO</span><h3>El primer viaje juntos</h3><p>SUSTITUIR: un recuerdo que os defina como pareja.</p></div>
-    <div class="chapter rv d2"><span class="when">AÑO</span><h3>La casa</h3><p>SUSTITUIR: el momento en que empezasteis a construir vuestra vida.</p></div>
-    <div class="chapter rv d3"><span class="when">AÑO</span><h3>La pedida</h3><p>SUSTITUIR: cómo fue.</p></div>
-    <div class="chapter rv d4"><span class="when">25 · 09 · 2027</span><h3>El sí, quiero</h3><p>Y aquí es donde entras tú.</p></div>
-  </div>
-</section>
 
 <section class="section" id="boda">
   <div class="narrow">
@@ -419,7 +394,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 <section class="section" id="dia" style="background:var(--cream)">
   <div class="cab rv">
     <img class="motivo" src="img/deco/copas.webp" alt="" loading="lazy">
-    <span class="num">02</span>
+    <span class="num">01</span>
     <h2 class="title">El día</h2>
     <p class="sub">El programa</p>
   </div>
@@ -432,13 +407,20 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
       </div>
     </div>
     <div class="moment rv d1">
+      <span class="dot"><svg viewBox="0 0 24 24"><path d="M5 4h14l-7 8zM12 12v8M8 20h8"/></svg></span>
+      <div>
+        <h3>Cóctel</h3>
+        <p class="hour">13:30 h</p>
+      </div>
+    </div>
+    <div class="moment rv d2">
       <span class="dot"><svg viewBox="0 0 24 24"><path d="M7 3v8m0 0v10M5 3v5a2 2 0 004 0V3M17 3c-1.5 2-2 4-2 6s.5 3 2 3v9"/></svg></span>
       <div>
         <h3>Banquete</h3>
         <p class="hour">15:00 h</p>
       </div>
     </div>
-    <div class="moment rv d2">
+    <div class="moment rv d3">
       <span class="dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 2"/></svg></span>
       <div>
         <h3>Baile y barra libre</h3>
@@ -452,7 +434,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 <section class="section" id="ubicacion">
   <div class="cab rv">
     <img class="banda" src="img/deco/bodega-bordada.webp" alt="Bodega La Venta, bordada" loading="lazy">
-    <span class="num">03</span>
+    <span class="num">02</span>
     <h2 class="title">Ubicación</h2>
     <p class="sub">El lugar</p>
   </div>
@@ -477,7 +459,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 <section class="section" id="galeria" style="background:var(--cream)">
   <div class="cab rv">
     <img class="motivo" src="img/deco/corazon.webp" alt="" loading="lazy">
-    <span class="num">04</span>
+    <span class="num">03</span>
     <h2 class="title">Nosotros</h2>
     <p class="sub">Algunos recuerdos</p>
   </div>
@@ -504,7 +486,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 <section class="section" id="info">
   <div class="cab rv">
     <img class="motivo" src="img/deco/ramo.webp" alt="" loading="lazy">
-    <span class="num">05</span>
+    <span class="num">04</span>
     <h2 class="title">Información</h2>
     <p class="sub">Lo que conviene saber</p>
   </div>
@@ -545,7 +527,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 <section class="section">
   <div class="cab rv">
     <img class="motivo" src="img/deco/vid.webp" alt="" loading="lazy">
-    <span class="num">06</span>
+    <span class="num">05</span>
     <h2 class="title">Antes de irte</h2>
     <p class="sub">Un par de cosas más</p>
   </div>
@@ -704,7 +686,7 @@ const WEDDING={
       "UID:andrea-javier-2027@boda","DTSTAMP:"+start,"DTSTART:"+start,"DTEND:"+end,
       "SUMMARY:Boda de Andrea y Javier",
       "LOCATION:Bodega La Venta\\, N-301 km 189\\, 16612 Casas de los Pinos\\, Cuenca",
-      "DESCRIPTION:Ceremonia a las 12:30 h y banquete a las 15:00 h.",
+      "DESCRIPTION:Ceremonia a las 12:30 h\\, cóctel a las 13:30 h y banquete a las 15:00 h.",
       "END:VEVENT","END:VCALENDAR"].join("\r\n");
     const a=document.createElement("a");
     a.href=URL.createObjectURL(new Blob([ics],{type:"text/calendar"}));
