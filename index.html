@@ -44,7 +44,7 @@
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
   margin:0;padding:3.7rem 0 calc(3.3rem + env(safe-area-inset-bottom));
-  background:var(--paper) url(img/deco/papel-textura.jpg) 0 0/300px;background-blend-mode:multiply;color:var(--ink);
+  background:var(--paper);color:var(--ink);
   font-family:var(--serif);font-weight:400;font-size:clamp(1.05rem,3.4vw,1.2rem);
   line-height:1.75;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
@@ -62,11 +62,7 @@ p:last-child{margin-bottom:0}
 .wrap{max-width:62rem;margin:0 auto}
 .narrow{max-width:34rem;margin:0 auto;text-align:center;text-wrap:balance}
 [id]{scroll-margin-top:4rem}
-.cab{position:relative;text-align:center;max-width:34rem;margin:0 auto 2.8rem;padding-top:clamp(7.4rem,33vw,12rem)}
-.cab.con-banda{padding-top:0}
-.cab .ramo{position:absolute;top:0;width:clamp(92px,26vw,160px);height:auto;max-width:none;-webkit-mask-image:linear-gradient(#000 62%,transparent 96%);mask-image:linear-gradient(#000 62%,transparent 96%)}
-.cab .ramo.izq{left:calc(var(--gutter) * -1);transform:scaleX(-1)}
-.cab .ramo.der{right:calc(var(--gutter) * -1)}
+.cab{position:relative;text-align:center;max-width:34rem;margin:0 auto 2.8rem}
 .cab .banda{width:min(100%,30rem);height:auto;margin:0 auto 1.4rem}
 .num{display:block;font-family:var(--ui);font-size:.8rem;letter-spacing:.42em;text-indent:.42em;color:var(--rosa);margin-bottom:.6rem}
 .title{font-family:var(--display);font-weight:500;font-size:clamp(2rem,8.6vw,2.9rem);color:var(--olive);text-align:center}
@@ -81,18 +77,11 @@ p:last-child{margin-bottom:0}
 .lede{color:var(--sage)}
 
 .section>*,footer>*,.hero>*{position:relative;z-index:1}
-.deco,.section>.deco,.hero>.deco{position:absolute;pointer-events:none;z-index:0;max-width:none;height:auto}
-.deco.tl{top:0;left:0;width:clamp(150px,44vw,310px)}
-.deco.br{bottom:0;right:0;width:clamp(120px,34vw,250px)}
-.deco.bl{bottom:0;left:0;width:clamp(84px,24vw,170px)}
-.arriba{padding-top:calc(var(--sec-y) + clamp(2.6rem,13vw,5rem))}
-.abajo{padding-bottom:calc(var(--sec-y) + clamp(4.5rem,24vw,7.5rem))}
-.rama{width:clamp(96px,28vw,150px);height:auto;margin:0 auto 1rem}
 
 /* ---------- portada ---------- */
 .hero{
   min-height:calc(100svh - 7rem);display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden;
-  padding:calc(env(safe-area-inset-top) + clamp(5rem,19vw,8rem)) var(--gutter) 2rem;
+  padding:3rem var(--gutter) 2rem;
   align-items:center;text-align:center;
 }
 .hero-inner{display:grid;gap:1.6rem;justify-items:center;align-content:center}
@@ -210,6 +199,7 @@ footer .names{font-family:var(--display);letter-spacing:.24em;text-transform:upp
 footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2rem,10vw,3.2rem);line-height:1.1;margin-top:.5rem}
 
 /* ---------- navegación / música ---------- */
+.rsvp{background:var(--cream)}
 .dock{position:fixed;right:1rem;bottom:calc(4.3rem + env(safe-area-inset-bottom));z-index:50;display:grid;gap:.6rem;justify-items:end}
 .fab{
   width:52px;height:52px;border-radius:50%;background:var(--olive);color:#F7F2E7;
@@ -368,8 +358,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 </div>
 
 <header class="hero" id="inicio">
-  <img class="deco tl" src="img/deco/esquina-sup-izq-2.webp" alt="">
-  <img class="deco br" src="img/deco/esquina-inf-der-2.webp" alt="">
   <div class="hero-inner">
     <div class="hero-copy">
       <h1 class="rv d1">Andrea<span class="amp">&amp;</span>Javier</h1>
@@ -383,10 +371,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   <div class="scroll-hint rv d4"><span></span>Desliza</div>
 </header>
 
-<section class="section" id="historia">
+<section class="section" id="historia" style="background:var(--cream)">
   <div class="cab rv">
-    <img class="ramo izq" src="img/deco/esquina-inf-der.webp" alt="">
-    <img class="ramo der" src="img/deco/esquina-inf-der.webp" alt="">
     <span class="num">01</span>
     <h2 class="title">Nuestra historia</h2>
     <p class="sub">Cómo empezó todo</p>
@@ -402,7 +388,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="boda">
   <div class="narrow">
-    <img class="rama rv" src="img/deco/rama.webp" alt="">
     <p class="script rv">Nos casamos</p>
     <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
     <p class="lede rv d1">Hay momentos en la vida que merecen ser compartidos con las personas que más queremos.</p>
@@ -420,10 +405,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section" id="dia">
+<section class="section" id="dia" style="background:var(--cream)">
   <div class="cab rv">
-    <img class="ramo izq" src="img/deco/esquina-inf-der.webp" alt="">
-    <img class="ramo der" src="img/deco/esquina-inf-der.webp" alt="">
     <span class="num">02</span>
     <h2 class="title">El día</h2>
     <p class="sub">El programa</p>
@@ -455,7 +438,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 </section>
 
 <section class="section" id="ubicacion">
-  <div class="cab con-banda rv">
+  <div class="cab rv">
     <img class="banda" src="img/deco/bodega-acuarela.webp" alt="Acuarela de la Bodega La Venta">
     <span class="num">03</span>
     <h2 class="title">Ubicación</h2>
@@ -478,10 +461,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section" id="galeria">
+<section class="section" id="galeria" style="background:var(--cream)">
   <div class="cab rv">
-    <img class="ramo izq" src="img/deco/esquina-inf-der.webp" alt="">
-    <img class="ramo der" src="img/deco/esquina-inf-der.webp" alt="">
     <span class="num">04</span>
     <h2 class="title">Nosotros</h2>
     <p class="sub">Algunos recuerdos</p>
@@ -508,8 +489,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section" id="info">
   <div class="cab rv">
-    <img class="ramo izq" src="img/deco/esquina-inf-der.webp" alt="">
-    <img class="ramo der" src="img/deco/esquina-inf-der.webp" alt="">
     <span class="num">05</span>
     <h2 class="title">Información</h2>
     <p class="sub">Lo que conviene saber</p>
@@ -532,7 +511,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section rsvp" id="confirmar">
   <div class="narrow">
-    <img class="rama rv" src="img/deco/rama.webp" alt="">
     <p class="script rv">Esperamos contar contigo</p>
     <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
     <p class="lede rv d1">Tu confirmación es muy importante para nosotros. Dinos si podrás acompañarnos en este día tan especial.</p>
@@ -550,8 +528,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 <section class="section">
   <div class="cab rv">
-    <img class="ramo izq" src="img/deco/esquina-inf-der.webp" alt="">
-    <img class="ramo der" src="img/deco/esquina-inf-der.webp" alt="">
     <span class="num">06</span>
     <h2 class="title">Antes de irte</h2>
     <p class="sub">Un par de cosas más</p>
@@ -564,10 +540,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   <p class="narrow lede rv d2" style="margin-top:1.8rem;font-size:.95rem">El álbum se abre el mismo día de la boda: lo que tú veas, nos lo quedamos nosotros.</p>
 </section>
 
-<footer class="arriba abajo">
-  <img class="deco tl" src="img/deco/esquina-sup-izq-2.webp" alt="">
-  <img class="deco br" src="img/deco/esquina-inf-der.webp" alt="">
-  <img class="rama" src="img/deco/rama-2.webp" alt="">
+<footer>
   <p class="names rv">Andrea &amp; Javier</p>
   <p class="rv d1" style="letter-spacing:.28em;font-family:var(--display);color:var(--sage);font-size:.9rem">25 · 09 · 2027</p>
   <p class="thanks rv d2">Gracias por acompañarnos</p>
