@@ -199,7 +199,7 @@ p:last-child{margin-bottom:0}
   font-family:var(--display);letter-spacing:.1em;margin-bottom:2rem
 }
 .rsvp .deadline svg{width:1.5rem;height:1.5rem;fill:none;stroke:currentColor;stroke-width:1.3}
-.extras{display:grid;gap:1rem;max-width:30rem;margin:2.6rem auto 0}
+.extras{display:grid;gap:1rem;max-width:30rem;margin:0 auto}
 .extras .btn{width:100%}
 
 /* ---------- footer ---------- */
@@ -209,6 +209,50 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 
 /* ---------- navegación / música ---------- */
 .rsvp{background:var(--cream)}
+.rsvp-form{
+  display:grid;gap:1.9rem;max-width:34rem;margin:2.6rem auto 0;padding:clamp(1.5rem,6vw,2.4rem);
+  background:linear-gradient(180deg,#FFFCF6,var(--paper));border:1px solid var(--line);border-radius:6px;
+  box-shadow:0 24px 50px -44px rgba(57,67,46,.8);
+}
+.campo{display:grid;gap:.75rem;margin:0;padding:0;border:0;min-width:0}
+.campo legend,.campo>label{padding:0;font-family:var(--display);font-size:1.12rem;line-height:1.35;color:var(--olive)}
+.campo legend{margin-bottom:.75rem}
+.nota{margin:-.45rem 0 0;font-family:var(--ui);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
+.rsvp-form textarea,.rsvp-form input[type=text]{
+  width:100%;padding:.8rem .95rem;border:1px solid var(--line);border-radius:4px;background:var(--paper);
+  font:inherit;color:var(--ink);resize:vertical;transition:border-color .25s ease,box-shadow .25s ease;
+}
+.rsvp-form textarea:focus,.rsvp-form input[type=text]:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(169,118,42,.14)}
+.opciones{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.opcion{position:relative}
+.opcion input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.opcion span{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;min-height:52px;padding:.5rem .8rem;text-align:center;
+  border:1px solid var(--gold-soft);border-radius:999px;color:var(--olive);
+  font-family:var(--ui);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;line-height:1.3;
+  transition:background .25s ease,color .25s ease,border-color .25s ease;
+}
+.opcion input:checked+span{background:var(--olive);border-color:var(--olive);color:#F7F2E7}
+.opcion input:checked+span::before{content:"";width:.42rem;height:.75rem;margin-top:-.2rem;border:solid currentColor;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.opcion input:focus-visible+span{outline:2px solid var(--gold);outline-offset:3px}
+.plegable{display:grid;grid-template-rows:0fr;margin-top:-1.9rem;transition:grid-template-rows .5s cubic-bezier(.22,.61,.36,1),margin-top .5s cubic-bezier(.22,.61,.36,1)}
+.plegable>div{min-height:0;overflow:hidden;display:grid;gap:1.9rem}
+.plegable.abierta{grid-template-rows:1fr;margin-top:0}
+.campo .plegable{margin-top:-.75rem}
+.campo .plegable.abierta{margin-top:.2rem}
+.campo .plegable>div{gap:.75rem}
+.plazas{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.5rem .6rem .5rem 1rem;border:1px solid var(--line);border-radius:999px;background:var(--paper)}
+.plazas>span{font-family:var(--ui);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}
+.plazas div{display:flex;align-items:center;gap:.4rem}
+.plazas button{width:40px;height:40px;border-radius:50%;border:1px solid var(--gold-soft);color:var(--olive);font-size:1.3rem;line-height:1}
+.plazas output{min-width:2.2rem;text-align:center;font-family:var(--display);font-size:1.5rem;color:var(--olive);font-variant-numeric:tabular-nums}
+.rsvp-form .btn{width:100%}
+.rsvp-form .btn[disabled]{opacity:.6;pointer-events:none}
+.aviso{margin:0;padding:.8rem 1rem;border-left:2px solid var(--rosa);background:rgba(192,132,126,.1);color:var(--ink);font-size:1rem}
+.aviso a{color:var(--rosa)}
+.rsvp-ok{max-width:34rem;margin:2.6rem auto 0;text-align:center;display:grid;gap:1.2rem;justify-items:center}
+.rsvp-ok:focus{outline:0}
+.rsvp-ok[hidden],.rsvp-form[hidden]{display:none}
 .dock{position:fixed;right:1rem;bottom:calc(4.3rem + env(safe-area-inset-bottom));z-index:50;display:grid;gap:.6rem;justify-items:end}
 .fab{
   width:52px;height:52px;border-radius:50%;background:var(--olive);color:#F7F2E7;
@@ -517,10 +561,59 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
       Fecha límite: 15 de julio de 2027
     </p>
   </div>
-  <div class="extras rv d2">
-    <a class="btn" id="formMain" href="URL_FORMULARIO_ASISTENCIA" target="_blank" rel="noopener">Confirmar asistencia</a>
-    <a class="btn ghost" id="formBus" href="URL_FORMULARIO_AUTOBUS" target="_blank" rel="noopener">Indicar si necesito autobús</a>
-    <a class="btn ghost" id="formFood" href="URL_FORMULARIO_ALERGIAS" target="_blank" rel="noopener">Indicar alergias e intolerancias</a>
+  <form class="rsvp-form rv d2" id="rsvp" novalidate>
+    <fieldset class="campo">
+      <legend>¿Nos acompañarás el 25 de septiembre de 2027?</legend>
+      <div class="opciones">
+        <label class="opcion"><input type="radio" name="asiste" value="Si, allí estaré."><span>Sí, allí estaré</span></label>
+        <label class="opcion"><input type="radio" name="asiste" value="No podré asistir."><span>No podré asistir</span></label>
+      </div>
+    </fieldset>
+    <div class="campo">
+      <label for="nombres" id="nombresLbl">¿Quiénes asistirán?</label>
+      <p class="nota" id="nombresNota">Tu nombre y el de tus acompañantes</p>
+      <textarea id="nombres" rows="2" autocomplete="name"></textarea>
+    </div>
+    <div class="plegable" id="siViene" inert><div>
+      <fieldset class="campo">
+        <legend>¿Necesitaréis autobús desde Cuenca?</legend>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="bus" value="No" checked><span>No, gracias</span></label>
+          <label class="opcion"><input type="radio" name="bus" value="Si"><span>Sí</span></label>
+        </div>
+        <div class="plegable" id="plazasBox" inert><div>
+          <div class="plazas">
+            <span id="plazasLbl">Plazas de autobús</span>
+            <div>
+              <button type="button" id="plazasMenos" aria-label="Una plaza menos">−</button>
+              <output id="plazas" aria-labelledby="plazasLbl" aria-live="polite">2</output>
+              <button type="button" id="plazasMas" aria-label="Una plaza más">+</button>
+            </div>
+          </div>
+        </div></div>
+      </fieldset>
+      <fieldset class="campo">
+        <legend>¿Alguna alergia o intolerancia alimentaria?</legend>
+        <div class="opciones">
+          <label class="opcion"><input type="radio" name="alergia" value="No" checked><span>Ninguna</span></label>
+          <label class="opcion"><input type="radio" name="alergia" value="Si"><span>Sí</span></label>
+        </div>
+        <div class="plegable" id="alergiaBox" inert><div>
+          <label for="alergias" class="nota" style="margin:0">Cuál es y quién la tiene</label>
+          <textarea id="alergias" rows="2"></textarea>
+          <label for="menuAdaptado" class="nota" style="margin:0">¿Alguien necesita un menú adaptado?</label>
+          <input type="text" id="menuAdaptado" placeholder="Vegetariano, infantil, sin gluten…">
+        </div></div>
+      </fieldset>
+    </div></div>
+    <p class="aviso" id="rsvpAviso" role="alert" hidden></p>
+    <button class="btn" type="submit" id="rsvpBtn">Enviar confirmación</button>
+  </form>
+  <div class="rsvp-ok" id="rsvpOk" tabindex="-1" hidden>
+    <img class="motivo" src="img/deco/palomas.webp" alt="">
+    <p class="script" id="rsvpTitulo"></p>
+    <p class="lede" id="rsvpMsg"></p>
+    <button class="btn ghost" type="button" id="rsvpOtra">Enviar otra respuesta</button>
   </div>
 </section>
 
@@ -552,6 +645,11 @@ const WEDDING={
   date:"2027-09-25T12:30:00+02:00",
   music:{src:"audio/cancion.mp3",title:"Nuestra canción"},
   sobre:{carpeta:"sobre/lazo",fps:36,lote:24},
+  forms:{
+    asistencia:{id:"1FAIpQLSd5I5z4nAFxN5Jo8fEu0CX3q96yRmv_1CGHNbdn9_42BddDtA",asiste:"",nombres:""},
+    bus:{id:"1FAIpQLSeeJSKmGdsb6Be2gGhNvtdG95EEVZHMTBol4aTaBiDuDeQboQ",necesita:"",plazas:""},
+    alergias:{id:"1FAIpQLScDUCIibNcX_8h0-e5KvfrU26giXIwHJF2UXafh26ao721lhQ",detalle:"",menu:""}
+  },
   photos:["img/foto-01.jpg","img/foto-02.jpg","img/foto-03.jpg","img/foto-04.jpg","img/foto-05.jpg","img/foto-06.jpg"]
 };
 
@@ -678,6 +776,65 @@ const WEDDING={
     if(e.target!==sobre&&!e.target.classList.contains("der"))return;
     sobre.remove();
     document.body.classList.remove("locked");
+  });
+
+  const rsvp=document.getElementById("rsvp"),ok=document.getElementById("rsvpOk"),aviso=document.getElementById("rsvpAviso"),boton=document.getElementById("rsvpBtn");
+  const plazas=document.getElementById("plazas"),nombres=document.getElementById("nombres");
+  const valor=n=>(rsvp.querySelector("input[name="+n+"]:checked")||{}).value;
+  const pliega=(id,abierta)=>{const el=document.getElementById(id);el.classList.toggle("abierta",abierta);el.inert=!abierta};
+  const formUrl=f=>"https://docs.google.com/forms/d/e/"+f.id+"/";
+  const envia=(f,datos)=>{
+    const cuerpo=new URLSearchParams();
+    for(const k in datos){if(!f[k])return Promise.resolve(false);cuerpo.append(f[k],datos[k])}
+    return fetch(formUrl(f)+"formResponse",{method:"POST",mode:"no-cors",body:cuerpo}).then(()=>true);
+  };
+  const refresca=()=>{
+    const viene=valor("asiste")==="Si, allí estaré.",falta=valor("asiste")==="No podré asistir.";
+    pliega("siViene",viene);
+    pliega("plazasBox",viene&&valor("bus")==="Si");
+    pliega("alergiaBox",viene&&valor("alergia")==="Si");
+    document.getElementById("nombresLbl").textContent=falta?"¿Quién eres?":"¿Quiénes asistirán?";
+    document.getElementById("nombresNota").textContent=falta?"Tu nombre, para saber quién nos escribe":"Tu nombre y el de tus acompañantes";
+    boton.textContent=falta?"Enviar respuesta":"Enviar confirmación";
+  };
+  rsvp.addEventListener("change",refresca);
+  const mueve=d=>{plazas.textContent=Math.min(12,Math.max(1,+plazas.textContent+d))};
+  document.getElementById("plazasMenos").addEventListener("click",()=>mueve(-1));
+  document.getElementById("plazasMas").addEventListener("click",()=>mueve(1));
+  rsvp.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const asiste=valor("asiste"),quien=nombres.value.trim(),viene=asiste==="Si, allí estaré.";
+    aviso.hidden=true;
+    if(!asiste||!quien){
+      aviso.textContent=!asiste?"Dinos primero si podrás venir.":"Escribe tu nombre para que sepamos quién eres.";
+      aviso.hidden=false;
+      (asiste?nombres:rsvp.querySelector("input[name=asiste]")).focus();
+      return;
+    }
+    const F=WEDDING.forms,envios=[envia(F.asistencia,{asiste,nombres:quien})];
+    if(viene){
+      const bus=valor("bus");
+      envios.push(envia(F.bus,{necesita:bus,plazas:bus==="Si"?plazas.textContent+" · "+quien:"0 · "+quien}));
+      if(valor("alergia")==="Si")envios.push(envia(F.alergias,{
+        detalle:(document.getElementById("alergias").value.trim()||"Sin detallar")+" · "+quien,
+        menu:document.getElementById("menuAdaptado").value.trim()||"No"
+      }));
+    }
+    boton.disabled=true;boton.textContent="Enviando…";
+    try{
+      const hechos=await Promise.all(envios);
+      document.getElementById("rsvpTitulo").textContent=viene?"¡Gracias!":"Gracias por avisar";
+      document.getElementById("rsvpMsg").textContent=(viene?"Lo tenemos apuntado. Nos vemos el 25 de septiembre.":"Te echaremos de menos. Brindaremos por ti.")+(hechos.includes(false)?" (Vista previa: todavía no se envía nada.)":"");
+      rsvp.hidden=true;ok.hidden=false;ok.focus();
+    }catch(err){
+      aviso.innerHTML='No hemos podido enviarlo. Comprueba la conexión y vuelve a intentarlo, o usa el <a href="'+formUrl(F.asistencia)+'viewform" target="_blank" rel="noopener">formulario de Google</a>.';
+      aviso.hidden=false;
+    }
+    boton.disabled=false;refresca();
+  });
+  document.getElementById("rsvpOtra").addEventListener("click",()=>{
+    rsvp.reset();plazas.textContent="2";refresca();
+    ok.hidden=true;rsvp.hidden=false;nombres.focus();
   });
 
   document.getElementById("addCal").addEventListener("click",()=>{
