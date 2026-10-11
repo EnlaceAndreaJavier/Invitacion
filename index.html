@@ -49,6 +49,7 @@ body{
   line-height:1.75;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:url(img/textura.jpg) center/cover}
 body.locked{overflow:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -93,8 +94,8 @@ p:last-child{margin-bottom:0}
   box-shadow:0 30px 60px -40px rgba(57,67,46,.6);
   overflow:hidden;
 }
-.portrait{position:relative}
-.portrait img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait,.villa{position:relative}
+.portrait img,.villa img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ph{font-family:var(--ui);font-size:.72rem;letter-spacing:.12em;color:var(--sage);text-transform:uppercase;padding:0 1rem}
 .hero h1{font-family:var(--display);color:var(--olive);letter-spacing:.16em;font-size:clamp(2rem,9.5vw,3.6rem);text-transform:uppercase}
 .hero .amp{display:block;font-family:var(--script);text-transform:none;color:var(--gold);font-size:clamp(2.2rem,9vw,3rem);letter-spacing:0;margin:.1em 0}
@@ -130,6 +131,7 @@ p:last-child{margin-bottom:0}
   padding:clamp(1.6rem,6vw,2.4rem);max-width:34rem;margin:0 auto;text-align:center;
   box-shadow:0 24px 50px -44px rgba(57,67,46,.8);
 }
+.villa{width:100%;max-width:22rem;margin:0 auto 1.4rem;aspect-ratio:16/10;border-radius:4px;background:linear-gradient(150deg,#E9E4D6,#DDD8C6);display:grid;place-content:center;border:1px solid var(--line);overflow:hidden}
 .card .venue{font-family:var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-size:1.15rem}
 .card address{font-style:normal;color:var(--sage);margin:.9rem 0 1.6rem;font-size:1rem}
 .btn{
@@ -445,6 +447,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
     <p class="sub">El lugar</p>
   </div>
   <div class="card rv d1">
+    <div class="villa"><p class="ph">Foto del lugar<br>img/bodega.jpg · 16:10</p><img src="img/bodega.jpg" alt="Bodega La Venta" loading="lazy" onerror="this.remove()"></div>
     <p class="venue">Bodega La Venta</p>
     <address>
       Carretera Nacional 301 (N-301), km 189<br>
