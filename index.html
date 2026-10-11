@@ -73,15 +73,19 @@ p:last-child{margin-bottom:0}
 .rule svg{width:15px;height:15px;fill:none;stroke:var(--gold);stroke-width:1.5}
 .lede{color:var(--sage)}
 
-.leaf{position:absolute;pointer-events:none;opacity:.5;width:clamp(120px,34vw,240px);z-index:0}
-.leaf.tl{top:-10px;left:-24px}
-.leaf.br{bottom:-14px;right:-26px;transform:rotate(180deg)}
-.section>*{position:relative;z-index:1}
+.section>*,footer>*,.hero>*{position:relative;z-index:1}
+.deco,.section>.deco,.hero>.deco{position:absolute;pointer-events:none;z-index:0;max-width:none;height:auto}
+.deco.tl{top:0;left:0;width:clamp(150px,44vw,310px)}
+.deco.br{bottom:0;right:0;width:clamp(120px,34vw,250px)}
+.deco.bl{bottom:0;left:0;width:clamp(84px,24vw,170px)}
+.arriba{padding-top:calc(var(--sec-y) + clamp(2.6rem,13vw,5rem))}
+.abajo{padding-bottom:calc(var(--sec-y) + clamp(4.5rem,24vw,7.5rem))}
+.rama{width:clamp(96px,28vw,150px);height:auto;margin:0 auto 1rem}
 
 /* ---------- portada ---------- */
 .hero{
-  min-height:100svh;display:grid;grid-template-rows:1fr auto;
-  padding:calc(env(safe-area-inset-top) + 3rem) var(--gutter) 2rem;
+  min-height:100svh;display:grid;grid-template-rows:1fr auto;position:relative;overflow:hidden;
+  padding:calc(env(safe-area-inset-top) + clamp(5rem,19vw,8rem)) var(--gutter) 2rem;
   align-items:center;text-align:center;
 }
 .hero-inner{display:grid;gap:1.6rem;justify-items:center;align-content:center}
@@ -93,8 +97,8 @@ p:last-child{margin-bottom:0}
   box-shadow:0 30px 60px -40px rgba(57,67,46,.6);
   overflow:hidden;
 }
-.portrait,.villa{position:relative}
-.portrait img,.villa img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.portrait{position:relative}
+.portrait img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ph{font-family:var(--ui);font-size:.72rem;letter-spacing:.12em;color:var(--sage);text-transform:uppercase;padding:0 1rem}
 .hero h1{font-family:var(--display);color:var(--olive);letter-spacing:.16em;font-size:clamp(2rem,9.5vw,3.6rem);text-transform:uppercase}
 .hero .amp{display:block;font-family:var(--script);text-transform:none;color:var(--gold);font-size:clamp(2.2rem,9vw,3rem);letter-spacing:0;margin:.1em 0}
@@ -132,7 +136,7 @@ p:last-child{margin-bottom:0}
 }
 .card .venue{font-family:var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-size:1.15rem}
 .card address{font-style:normal;color:var(--sage);margin:.9rem 0 1.6rem;font-size:1rem}
-.villa{width:100%;max-width:22rem;margin:0 auto 1.4rem;aspect-ratio:16/10;border-radius:4px;background:linear-gradient(150deg,#E9E4D6,#DDD8C6);display:grid;place-content:center;border:1px solid var(--line);overflow:hidden}
+.acuarela{width:100%;max-width:26rem;height:auto;margin:0 auto 1rem}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
   min-height:52px;padding:0 1.9rem;border-radius:999px;
@@ -307,25 +311,6 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 </head>
 <body>
 
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="sprig" viewBox="0 0 200 200">
-    <g fill="none" stroke="#6E7B5E" stroke-width="2" stroke-linecap="round">
-      <path d="M8 8C40 30 70 62 96 100"/>
-      <path d="M20 6C34 18 40 34 36 48 22 44 12 26 20 6z" fill="#8A9679" stroke="none"/>
-      <path d="M6 22C22 30 32 44 30 60 14 54 4 40 6 22z" fill="#6E7B5E" stroke="none"/>
-      <path d="M44 30C60 40 68 56 64 72 48 64 40 48 44 30z" fill="#8A9679" stroke="none"/>
-      <path d="M28 52C44 60 54 76 50 92 34 84 26 68 28 52z" fill="#5D6A4E" stroke="none"/>
-      <path d="M66 62C82 72 90 88 86 104 70 96 62 80 66 62z" fill="#8A9679" stroke="none"/>
-      <path d="M52 86C68 94 76 110 72 126 56 118 48 102 52 86z" fill="#6E7B5E" stroke="none"/>
-      <circle cx="24" cy="24" r="11" fill="#F3E3D2" stroke="none"/>
-      <circle cx="24" cy="24" r="3.4" fill="#D9A85C" stroke="none"/>
-      <circle cx="70" cy="96" r="8" fill="#F3E3D2" stroke="none"/>
-      <circle cx="70" cy="96" r="2.6" fill="#D9A85C" stroke="none"/>
-      <circle cx="96" cy="40" r="6" fill="#EBD9C4" stroke="none"/>
-    </g>
-  </symbol>
-</svg>
-
 <button class="sobre" id="sobre" type="button" aria-label="Abrir la invitación de Andrea y Javier">
   <span class="hoja izq"></span>
   <span class="hoja der"></span>
@@ -355,7 +340,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
 </div>
 
 <header class="hero" id="inicio">
-  <svg class="leaf tl" aria-hidden="true"><use href="#sprig"/></svg>
+  <img class="deco tl" src="img/deco/esquina-sup-izq-2.webp" alt="">
+  <img class="deco br" src="img/deco/esquina-inf-der-2.webp" alt="">
   <div class="hero-inner">
     <div class="hero-copy">
       <h1 class="rv d1">Andrea<span class="amp">&amp;</span>Javier</h1>
@@ -369,8 +355,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   <div class="scroll-hint rv d4"><span></span>Desliza</div>
 </header>
 
-<section class="section" id="historia" style="background:var(--cream)">
-  <svg class="leaf tl" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section arriba" id="historia" style="background:var(--cream)">
+  <img class="deco tl" src="img/deco/esquina-sup-izq.webp" alt="">
   <h2 class="title rv">Nuestra historia</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="story">
@@ -382,9 +368,11 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section" id="boda">
-  <svg class="leaf br" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section abajo" id="boda">
+  <img class="deco br" src="img/deco/esquina-inf-der.webp" alt="">
+  <img class="deco bl" src="img/deco/rama-inf-izq.webp" alt="">
   <div class="narrow">
+    <img class="rama rv" src="img/deco/rama.webp" alt="">
     <p class="script rv">Nos casamos</p>
     <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
     <p class="lede rv d1">Hay momentos en la vida que merecen ser compartidos con las personas que más queremos.</p>
@@ -402,8 +390,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section" style="background:var(--cream)">
-  <svg class="leaf tl" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section arriba" style="background:var(--cream)">
+  <img class="deco tl" src="img/deco/esquina-sup-izq-2.webp" alt="">
   <h2 class="title rv">El día</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="timeline">
@@ -432,12 +420,12 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section" id="ubicacion">
-  <svg class="leaf br" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section abajo" id="ubicacion">
+  <img class="deco br" src="img/deco/esquina-inf-der-2.webp" alt="">
   <h2 class="title rv">Ubicación</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="card rv d1">
-    <div class="villa"><p class="ph">Foto del lugar<br>img/bodega.jpg · 16:10</p><img src="img/bodega.jpg" alt="Bodega La Venta" loading="lazy" onerror="this.remove()"></div>
+    <img class="acuarela" src="img/deco/bodega-acuarela.webp" alt="Acuarela de la Bodega La Venta" loading="lazy">
     <p class="venue">Bodega La Venta</p>
     <address>
       Carretera Nacional 301 (N-301), km 189<br>
@@ -454,7 +442,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section" id="galeria" style="background:var(--cream)">
+<section class="section arriba" id="galeria" style="background:var(--cream)">
+  <img class="deco tl" src="img/deco/esquina-sup-izq.webp" alt="">
   <h2 class="title rv">Nosotros</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="gallery rv d1" id="gallery">
@@ -477,8 +466,8 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </figure>
 </div>
 
-<section class="section" id="info">
-  <svg class="leaf tl" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section arriba" id="info">
+  <img class="deco tl" src="img/deco/esquina-sup-izq-2.webp" alt="">
   <h2 class="title rv">Información</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="info rv d1">
@@ -497,9 +486,10 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section rsvp" id="confirmar">
-  <svg class="leaf br" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section rsvp abajo" id="confirmar">
+  <img class="deco br" src="img/deco/esquina-inf-der.webp" alt="">
   <div class="narrow">
+    <img class="rama rv" src="img/deco/rama.webp" alt="">
     <p class="script rv">Esperamos contar contigo</p>
     <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
     <p class="lede rv d1">Tu confirmación es muy importante para nosotros. Dinos si podrás acompañarnos en este día tan especial.</p>
@@ -515,8 +505,9 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   </div>
 </section>
 
-<section class="section">
-  <svg class="leaf tl" aria-hidden="true"><use href="#sprig"/></svg>
+<section class="section arriba abajo">
+  <img class="deco tl" src="img/deco/esquina-sup-izq.webp" alt="">
+  <img class="deco bl" src="img/deco/rama-inf-izq.webp" alt="">
   <h2 class="title rv">Antes de irte</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="extras rv d1">
@@ -527,9 +518,10 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   <p class="narrow lede rv d2" style="margin-top:1.8rem;font-size:.95rem">El álbum se abre el mismo día de la boda: lo que tú veas, nos lo quedamos nosotros.</p>
 </section>
 
-<footer>
-  <svg class="leaf tl" aria-hidden="true"><use href="#sprig"/></svg>
-  <svg class="leaf br" aria-hidden="true"><use href="#sprig"/></svg>
+<footer class="arriba abajo">
+  <img class="deco tl" src="img/deco/esquina-sup-izq-2.webp" alt="">
+  <img class="deco br" src="img/deco/esquina-inf-der.webp" alt="">
+  <img class="rama" src="img/deco/rama-2.webp" alt="">
   <p class="names rv">Andrea &amp; Javier</p>
   <p class="rv d1" style="letter-spacing:.28em;font-family:var(--display);color:var(--sage);font-size:.9rem">25 · 09 · 2027</p>
   <p class="thanks rv d2">Gracias por acompañarnos</p>
