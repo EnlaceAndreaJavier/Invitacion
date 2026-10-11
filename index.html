@@ -49,7 +49,7 @@ body{
   line-height:1.75;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
-body::before{content:"";position:fixed;inset:0;z-index:-1;background:url(img/textura.jpg) center/cover}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:linear-gradient(rgba(250,244,233,.55),rgba(250,244,233,.55)),url(img/textura.jpg) center/cover}
 body.locked{overflow:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -79,7 +79,7 @@ p:last-child{margin-bottom:0}
 .rule{display:flex;align-items:center;justify-content:center;gap:.9rem;margin:1.1rem auto 2.4rem;max-width:14rem}
 .rule::before,.rule::after{content:"";height:1px;flex:1;background:var(--gold-soft)}
 .rule svg{width:15px;height:15px;fill:none;stroke:var(--gold);stroke-width:1.5}
-.lede{color:var(--sage)}
+.lede{color:var(--ink)}
 
 .section>*,footer>*,.hero>*{position:relative;z-index:1}
 
@@ -115,7 +115,7 @@ p:last-child{margin-bottom:0}
   display:block;font-family:var(--display);font-weight:400;color:var(--olive);
   font-size:clamp(1.8rem,9vw,3rem);font-variant-numeric:tabular-nums;line-height:1
 }
-.count small{font-family:var(--ui);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sage)}
+.count small{font-family:var(--ui);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
 .count-sep{color:var(--gold-soft)}
 
 /* ---------- el día ---------- */
@@ -179,8 +179,8 @@ p:last-child{margin-bottom:0}
 .lb-next{right:.5rem;top:50%;margin-top:-26px}
 
 /* ---------- info ---------- */
-.info{display:grid;gap:1.4rem;max-width:38rem;margin:0 auto}
-.faq{border-bottom:1px solid var(--line)}
+.info{display:grid;gap:.8rem;max-width:38rem;margin:0 auto}
+.faq{background:#FFFCF6;border:1px solid var(--line);border-radius:6px;padding:0 1.2rem}
 .faq summary{
   list-style:none;cursor:pointer;padding:1.1rem 0;display:flex;justify-content:space-between;gap:1rem;
   font-family:var(--display);letter-spacing:.06em;color:var(--olive);font-size:1.05rem;
@@ -188,7 +188,7 @@ p:last-child{margin-bottom:0}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";color:var(--gold);font-size:1.3rem;line-height:1;transition:transform .3s ease}
 .faq[open] summary::after{transform:rotate(45deg)}
-.faq .body{padding-bottom:1.2rem;color:var(--sage);font-size:1rem}
+.faq .body{padding-bottom:1.2rem;color:var(--ink);font-size:1rem}
 
 /* ---------- confirmación ---------- */
 .rsvp .deadline{
