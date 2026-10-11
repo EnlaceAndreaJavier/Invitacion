@@ -206,6 +206,9 @@ p:last-child{margin-bottom:0}
 footer{padding:var(--sec-y) var(--gutter) calc(env(safe-area-inset-bottom) + 3rem);text-align:center;position:relative;overflow:hidden}
 footer .names{font-family:var(--display);letter-spacing:.24em;text-transform:uppercase;color:var(--olive);font-size:clamp(1.1rem,5vw,1.5rem)}
 footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2rem,10vw,3.2rem);line-height:1.1;margin-top:.5rem}
+footer .firma{margin:3.5rem auto 0;font-family:var(--ui);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--sage)}
+footer .firma::before{content:"";display:block;width:2.5rem;height:1px;margin:0 auto 1.1rem;background:var(--gold-soft)}
+footer .firma b{display:block;margin-top:.15rem;font-family:var(--script);font-weight:400;font-size:1.7rem;letter-spacing:.04em;text-transform:none;color:var(--gold)}
 
 /* ---------- navegación / música ---------- */
 .rsvp{background:var(--cream)}
@@ -638,6 +641,7 @@ footer .thanks{font-family:var(--script);color:var(--gold);font-size:clamp(2.2re
   <p class="rv d1" style="letter-spacing:.28em;font-family:var(--display);color:var(--sage);font-size:.9rem">25 · 09 · 2027</p>
   <p class="thanks rv d2">Gracias por acompañarnos</p>
   <p style="margin-top:2rem"><a class="btn ghost" href="#inicio">Volver arriba</a></p>
+  <p class="firma">Diseñado con cariño<b>S. M.</b></p>
 </footer>
 
 <script>
