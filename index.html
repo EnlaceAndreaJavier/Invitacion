@@ -9,14 +9,14 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Andrea y Javier · Nos casamos">
 <meta property="og:description" content="25 de septiembre de 2027 · Bodega La Venta, Casas de los Pinos (Cuenca). Confirma tu asistencia.">
-<meta property="og:image" content="https://SUSTITUIR-DOMINIO.es/og-andrea-javier.jpg">
+<meta property="og:image" content="https://SUSTITUIR-DOMINIO.es/img/og-andrea-javier.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:locale" content="es_ES">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Andrea y Javier · Nos casamos">
 <meta name="twitter:description" content="25 de septiembre de 2027 · Bodega La Venta, Casas de los Pinos (Cuenca).">
-<meta name="twitter:image" content="https://SUSTITUIR-DOMINIO.es/og-andrea-javier.jpg">
+<meta name="twitter:image" content="https://SUSTITUIR-DOMINIO.es/img/og-andrea-javier.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23FAF4E9'/%3E%3Cpath d='M16 25C11 21 7 18 7 14.2 7 11.3 9.2 9 12 9c1.7 0 3.2.9 4 2.2C16.8 9.9 18.3 9 20 9c2.8 0 5 2.3 5 5.2C25 18 21 21 16 25z' fill='none' stroke='%23A9762A' stroke-width='1.6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,7 +93,8 @@ p:last-child{margin-bottom:0}
   box-shadow:0 30px 60px -40px rgba(57,67,46,.6);
   overflow:hidden;
 }
-.portrait img{width:100%;height:100%;object-fit:cover}
+.portrait,.villa{position:relative}
+.portrait img,.villa img,.gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ph{font-family:var(--ui);font-size:.72rem;letter-spacing:.12em;color:var(--sage);text-transform:uppercase;padding:0 1rem}
 .hero h1{font-family:var(--display);color:var(--olive);letter-spacing:.16em;font-size:clamp(2rem,9.5vw,3.6rem);text-transform:uppercase}
 .hero .amp{display:block;font-family:var(--script);text-transform:none;color:var(--gold);font-size:clamp(2.2rem,9vw,3rem);letter-spacing:0;margin:.1em 0}
@@ -133,7 +134,6 @@ p:last-child{margin-bottom:0}
 .card .venue{font-family:var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--olive);font-size:1.15rem}
 .card address{font-style:normal;color:var(--sage);margin:.9rem 0 1.6rem;font-size:1rem}
 .villa{width:100%;max-width:22rem;margin:0 auto 1.4rem;aspect-ratio:16/10;border-radius:4px;background:linear-gradient(150deg,#E9E4D6,#DDD8C6);display:grid;place-content:center;border:1px solid var(--line);overflow:hidden}
-.villa img{width:100%;height:100%;object-fit:cover}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
   min-height:52px;padding:0 1.9rem;border-radius:999px;
@@ -155,7 +155,6 @@ p:last-child{margin-bottom:0}
   display:grid;place-content:center;position:relative;transition:opacity .3s ease;
 }
 .gallery button:hover{opacity:.88}
-.gallery img{width:100%;height:100%;object-fit:cover}
 .g1{aspect-ratio:3/4}
 .g2{aspect-ratio:3/4;margin-top:2.2rem}
 .g3{grid-column:1/-1;aspect-ratio:16/10}
@@ -167,7 +166,7 @@ p:last-child{margin-bottom:0}
 .lightbox.open{display:grid}
 .lightbox figure{margin:0;max-width:min(94vw,52rem);width:100%}
 .lightbox .frame{aspect-ratio:3/4;max-height:78svh;background:#2E3628;display:grid;place-content:center;border:1px solid rgba(201,164,105,.35)}
-.lightbox img{max-height:78svh;width:auto;margin:0 auto}
+.lightbox img{max-height:78svh;max-width:100%;width:auto;margin:0 auto}
 .lightbox figcaption{color:#D8D2C2;text-align:center;font-family:var(--ui);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;padding-top:1rem}
 .lb-btn{position:absolute;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;color:#EFE9DA;background:rgba(0,0,0,.25)}
 .lb-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.4}
@@ -378,7 +377,8 @@ footer small{display:block;font-family:var(--ui);font-size:.66rem;letter-spacing
       <p class="place rv d3">Bodega La Venta · Casas de los Pinos, Cuenca</p>
     </div>
     <div class="portrait rv d2">
-      <p class="ph">Foto de portada<br>portada.jpg · vertical 4:5</p>
+      <p class="ph">Foto de portada<br>img/portada.jpg · vertical 4:5</p>
+      <img src="img/portada.jpg" alt="Andrea y Javier" onerror="this.remove()">
     </div>
   </div>
   <div class="scroll-hint rv d4"><span></span>Desliza</div>
@@ -454,7 +454,7 @@ footer small{display:block;font-family:var(--ui);font-size:.66rem;letter-spacing
   <h2 class="title rv">Ubicación</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="card rv d1">
-    <div class="villa"><p class="ph">Foto del lugar<br>bodega.jpg · 16:10</p></div>
+    <div class="villa"><p class="ph">Foto del lugar<br>img/bodega.jpg · 16:10</p><img src="img/bodega.jpg" alt="Bodega La Venta" loading="lazy" onerror="this.remove()"></div>
     <p class="venue">Bodega La Venta</p>
     <address>
       Carretera Nacional 301 (N-301), km 189<br>
@@ -475,12 +475,12 @@ footer small{display:block;font-family:var(--ui);font-size:.66rem;letter-spacing
   <h2 class="title rv">Nosotros</h2>
   <div class="rule rv"><svg viewBox="0 0 24 24"><path d="M12 20C8 17 4 14.5 4 11a4 4 0 017-2.6A4 4 0 0118 11c0 3.5-4 6-6 9z"/></svg></div>
   <div class="gallery rv d1" id="gallery">
-    <button class="g1" data-i="0"><p class="ph">foto-01.jpg</p></button>
-    <button class="g2" data-i="1"><p class="ph">foto-02.jpg</p></button>
-    <button class="g3" data-i="2"><p class="ph">foto-03.jpg</p></button>
-    <button class="g4" data-i="3"><p class="ph">foto-04.jpg</p></button>
-    <button class="g5" data-i="4"><p class="ph">foto-05.jpg</p></button>
-    <button class="g6" data-i="5"><p class="ph">foto-06.jpg</p></button>
+    <button class="g1" data-i="0"><p class="ph">img/foto-01.jpg</p><img src="img/foto-01.jpg" alt="Andrea y Javier, fotografía 1" loading="lazy" onerror="this.remove()"></button>
+    <button class="g2" data-i="1"><p class="ph">img/foto-02.jpg</p><img src="img/foto-02.jpg" alt="Andrea y Javier, fotografía 2" loading="lazy" onerror="this.remove()"></button>
+    <button class="g3" data-i="2"><p class="ph">img/foto-03.jpg</p><img src="img/foto-03.jpg" alt="Andrea y Javier, fotografía 3" loading="lazy" onerror="this.remove()"></button>
+    <button class="g4" data-i="3"><p class="ph">img/foto-04.jpg</p><img src="img/foto-04.jpg" alt="Andrea y Javier, fotografía 4" loading="lazy" onerror="this.remove()"></button>
+    <button class="g5" data-i="4"><p class="ph">img/foto-05.jpg</p><img src="img/foto-05.jpg" alt="Andrea y Javier, fotografía 5" loading="lazy" onerror="this.remove()"></button>
+    <button class="g6" data-i="5"><p class="ph">img/foto-06.jpg</p><img src="img/foto-06.jpg" alt="Andrea y Javier, fotografía 6" loading="lazy" onerror="this.remove()"></button>
   </div>
 </section>
 
@@ -489,7 +489,7 @@ footer small{display:block;font-family:var(--ui);font-size:.66rem;letter-spacing
   <button class="lb-btn lb-prev" id="lbPrev" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
   <button class="lb-btn lb-next" id="lbNext" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
   <figure>
-    <div class="frame" id="lbFrame"><p class="ph" id="lbPh" style="color:#C9C2B0"></p></div>
+    <div class="frame" id="lbFrame"><p class="ph" id="lbPh" style="color:#C9C2B0"></p><img id="lbImg" alt=""></div>
     <figcaption id="lbCap"></figcaption>
   </figure>
 </div>
@@ -571,8 +571,8 @@ footer small{display:block;font-family:var(--ui);font-size:.66rem;letter-spacing
 <script>
 const WEDDING={
   date:"2027-09-25T12:30:00+02:00",
-  music:{src:"",title:"Nuestra canción"},
-  photos:["foto-01.jpg","foto-02.jpg","foto-03.jpg","foto-04.jpg","foto-05.jpg","foto-06.jpg"]
+  music:{src:"audio/cancion.mp3",title:"Nuestra canción"},
+  photos:["img/foto-01.jpg","img/foto-02.jpg","img/foto-03.jpg","img/foto-04.jpg","img/foto-05.jpg","img/foto-06.jpg"]
 };
 
 (function(){
@@ -615,10 +615,15 @@ const WEDDING={
   menu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>setMenu(false)));
 
   const lb=document.getElementById("lightbox"),lbPh=document.getElementById("lbPh"),lbCap=document.getElementById("lbCap");
+  const lbImg=document.getElementById("lbImg");
   let idx=0,lastFocus=null;
+  lbImg.addEventListener("load",()=>{lbImg.style.display="";lbPh.hidden=true});
+  lbImg.addEventListener("error",()=>{lbImg.style.display="none";lbPh.hidden=false});
   function show(i){
     idx=(i+WEDDING.photos.length)%WEDDING.photos.length;
     lbPh.textContent=WEDDING.photos[idx];
+    lbPh.hidden=false;lbImg.style.display="none";
+    lbImg.src=WEDDING.photos[idx];
     lbCap.textContent=(idx+1)+" / "+WEDDING.photos.length;
   }
   function openLb(i){lastFocus=document.activeElement;show(i);lb.classList.add("open");document.body.classList.add("locked");document.getElementById("lbClose").focus()}
@@ -674,7 +679,8 @@ const WEDDING={
     else{try{await navigator.clipboard.writeText(location.href);document.getElementById("shareBtn").textContent="Enlace copiado"}catch(e){}}
   });
 
-  if(WEDDING.music.src){
+  if(WEDDING.music.src)fetch(WEDDING.music.src,{method:"HEAD"}).then(r=>{
+    if(!r.ok||!+r.headers.get("content-length"))return;
     const audio=new Audio(WEDDING.music.src);
     audio.loop=true;audio.volume=.35;
     const btn=document.getElementById("musicBtn");
@@ -686,7 +692,7 @@ const WEDDING={
       }catch(err){btn.hidden=true}
     });
     btn.style.opacity=".6";
-  }
+  }).catch(()=>{});
 
   if(!reduce){
     const portrait=document.querySelector(".portrait");
