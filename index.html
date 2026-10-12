@@ -320,25 +320,26 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
   -webkit-tap-highlight-color:transparent;
   --ancho-lazo:min(106vw,820px);--nudo-x:.501;--nudo-y:.199;
   --sombra:rgba(70,52,24,.38);
+  --cae:max(0s,var(--dura,0s) - 1.6s);--abre:calc(var(--cae) + .7s);
 }
 .sobre .hoja{
   position:absolute;top:0;bottom:0;width:50%;overflow:hidden;backface-visibility:hidden;
-  transition:transform 2s cubic-bezier(.6,0,.3,1) calc(var(--dura,0s) + .15s);
+  transition:transform 2.2s cubic-bezier(.35,0,.25,1) var(--abre),filter 2.2s ease-in var(--abre);
 }
 .sobre .hoja::before{content:"";position:absolute;top:0;bottom:0;width:200%;background:var(--cream) url(sobre/papel.jpg) center/cover}
-.sobre .hoja::after{content:"";position:absolute;top:0;bottom:0;width:14px}
+.sobre .hoja::after{content:"";position:absolute;top:0;bottom:0;width:18px}
 .sobre .izq{left:0;transform-origin:left}
 .sobre .izq::before{left:0}
-.sobre .izq::after{right:0;background:linear-gradient(to left,var(--sombra),transparent)}
+.sobre .izq::after{right:0;background:linear-gradient(to left,rgba(45,34,18,.75) 0 1.5px,rgba(255,255,255,.4) 1.5px 2.5px,rgba(70,52,24,.2) 2.5px,transparent)}
 .sobre .der{right:0;transform-origin:right}
 .sobre .der::before{right:0}
-.sobre .der::after{left:0;background:linear-gradient(to right,rgba(255,255,255,.5),transparent 40%)}
+.sobre .der::after{left:0;background:linear-gradient(to right,rgba(45,34,18,.75) 0 1.5px,rgba(255,255,255,.6) 1.5px 2.5px,rgba(70,52,24,.1) 2.5px,transparent 70%)}
 .sobre .lazo{
   position:absolute;max-width:none;
   width:var(--ancho-lazo);height:calc(var(--ancho-lazo) * var(--proporcion,1));
   left:calc(50% - var(--ancho-lazo) * var(--nudo-x));
   top:calc(50% - var(--ancho-lazo) * var(--proporcion,1) * var(--nudo-y));
-  transition:transform 1.5s cubic-bezier(.4,0,1,1) max(0s,var(--dura,0s) - 1.3s);
+  transition:transform 1.5s cubic-bezier(.4,0,1,1) var(--cae);
 }
 .sobre .nombres,.sobre .ayuda{position:absolute;left:50%;transform:translateX(-50%);white-space:nowrap;transition:opacity .4s ease}
 .sobre .nombres{
@@ -346,10 +347,11 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
   font-family:var(--script);font-size:clamp(2.2rem,10vw,3.4rem);line-height:1.3;
   box-shadow:0 2px 3px var(--sombra),0 10px 24px -8px var(--sombra);
 }
-.sobre .ayuda{bottom:calc(5% + env(safe-area-inset-bottom));font-family:var(--ui);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink)}
+.sobre .ayuda{bottom:calc(5% + env(safe-area-inset-bottom));padding:.6em 1.2em .55em;background:#F7F1E5;box-shadow:0 1px 3px var(--sombra);font-family:var(--ui);font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--ink)}
 .sobre.abierto{cursor:default}
 .sobre.abierto .nombres,.sobre.abierto .ayuda{opacity:0}
 .sobre.abierto .lazo{transform:translateY(110vh)}
+.sobre.abierto .hoja{filter:brightness(.72)}
 .sobre.abierto .izq{transform:rotateY(-105deg)}
 .sobre.abierto .der{transform:rotateY(105deg)}
 @media (prefers-reduced-motion:reduce){
@@ -805,7 +807,7 @@ const WEDDING={
     const inicio=performance.now();
     const paso=ahora=>{
       const n=Math.floor((ahora-inicio)*WEDDING.sobre.fps/1000);
-      pinta(Math.min(n,cuadros.length-1));
+      pinta(Math.max(0,Math.min(n,cuadros.length-1)));
       if(n<cuadros.length-1)requestAnimationFrame(paso);
     };
     requestAnimationFrame(paso);
