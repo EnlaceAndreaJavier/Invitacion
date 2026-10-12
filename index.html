@@ -236,11 +236,11 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
 .campo legend,.campo>label{padding:0;font-family:var(--display);font-size:1.12rem;line-height:1.35;color:var(--olive)}
 .campo legend{margin-bottom:.75rem}
 .nota{margin:-.45rem 0 0;font-family:var(--ui);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage)}
-.rsvp-form textarea,.rsvp-form input[type=text],.fotos input[type=text]{
+.rsvp-form textarea,.rsvp-form input[type=text],.rsvp-form input[type=tel],.fotos input[type=text]{
   width:100%;padding:.8rem .95rem;border:1px solid var(--line);border-radius:4px;background:var(--paper);
   font:inherit;color:var(--ink);resize:vertical;transition:border-color .25s ease,box-shadow .25s ease;
 }
-.rsvp-form textarea:focus,.rsvp-form input[type=text]:focus,.fotos input[type=text]:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(169,118,42,.14)}
+.rsvp-form textarea:focus,.rsvp-form input[type=text]:focus,.rsvp-form input[type=tel]:focus,.fotos input[type=text]:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px rgba(169,118,42,.14)}
 .opciones{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
 .opcion{position:relative}
 .opcion input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
@@ -265,6 +265,14 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
 .plazas button{width:40px;height:40px;border-radius:50%;border:1px solid var(--gold-soft);color:var(--olive);font-size:1.3rem;line-height:1}
 .plazas output{min-width:2.2rem;text-align:center;font-family:var(--display);font-size:1.5rem;color:var(--olive);font-variant-numeric:tabular-nums}
 .rsvp-form .btn{width:100%}
+.rsvp-form.esperando>:not(#telPaso){display:none}
+.campo[hidden]{display:none}
+.tel-fila{display:flex;gap:.6rem}
+.tel-fila input{flex:1;min-width:0}
+.rsvp-form .tel-fila .btn{width:auto;padding:0 1.4rem}
+.enlace{justify-self:start;padding:0;border:0;background:none;font-family:var(--ui);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sage);text-decoration:underline;text-underline-offset:.3em;cursor:pointer}
+.saludo{margin:0;text-align:center}
+.saludo.script{font-size:clamp(1.8rem,8vw,2.4rem);line-height:1.15}
 .rsvp-form .btn[disabled]{opacity:.6;pointer-events:none}
 .aviso{margin:0;padding:.8rem 1rem;border-left:2px solid var(--rosa);background:rgba(192,132,126,.1);color:var(--ink);font-size:1rem}
 .aviso a{color:var(--rosa)}
@@ -582,6 +590,13 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
     </p>
   </div>
   <form class="rsvp-form rv d2" id="rsvp" novalidate>
+    <div class="campo" id="telPaso" hidden>
+      <label for="telefono">Tu teléfono</label>
+      <p class="nota">Para saludarte y rellenar tus datos</p>
+      <div class="tel-fila"><input type="tel" id="telefono" autocomplete="tel" inputmode="tel"><button type="button" class="btn" id="telBtn">Continuar</button></div>
+      <button type="button" class="enlace" id="telNo">Prefiero escribir mi nombre</button>
+    </div>
+    <p class="saludo" id="saludo" hidden></p>
     <fieldset class="campo">
       <legend>¿Nos acompañarás el 25 de septiembre de 2027?</legend>
       <div class="opciones">
@@ -685,6 +700,7 @@ const WEDDING={
   music:{src:"audio/cancion.mp3",title:"Nuestra canción"},
   fotos:{url:"https://script.google.com/macros/s/AKfycbyoXKBzd8TVmjI-oWuhyV-6Ijid5jS9IO87NytKm_JbnViGnmHZjCpL2-2L-Bjg2Ete/exec",abre:"2027-09-25T00:00:00+02:00",lado:2560,trozo:4194304,maximo:524288000},
   sobre:{carpeta:"sobre/lazo",fps:36,lote:24},
+  invitados:{url:""},
   forms:{
     asistencia:{id:"1FAIpQLSc8TwRDAkiSFAQVRTCT-IHge0gYHwXuDMzc1symDXjN4iI_Sg",asiste:"entry.1099897512",nombres:"entry.1444914747"},
     bus:{id:"1FAIpQLSfZtEnK3cXLzgA0dzLK-KuXKvMQ04MjImhkj_m8cZWMGdsubA",necesita:"entry.1367109284",plazas:"entry.534012587"},
@@ -841,6 +857,30 @@ const WEDDING={
   const mueve=d=>{plazas.textContent=Math.min(12,Math.max(1,+plazas.textContent+d))};
   document.getElementById("plazasMenos").addEventListener("click",()=>mueve(-1));
   document.getElementById("plazasMas").addEventListener("click",()=>mueve(1));
+  const telPaso=document.getElementById("telPaso"),telefono=document.getElementById("telefono"),telBtn=document.getElementById("telBtn"),saludo=document.getElementById("saludo");
+  let telF="";
+  const pideTel=()=>{telF="";saludo.hidden=true;telPaso.hidden=false;rsvp.classList.add("esperando")};
+  const sigue=(texto,clase)=>{
+    telPaso.hidden=true;rsvp.classList.remove("esperando");
+    saludo.textContent=texto;saludo.className=clase;saludo.hidden=!texto;
+  };
+  telBtn.addEventListener("click",async()=>{
+    const t=telefono.value.trim();
+    if(t.replace(/\D/g,"").length<9){telefono.focus();return}
+    telBtn.disabled=true;telBtn.textContent="Buscando…";
+    try{
+      const r=await(await fetch(WEDDING.invitados.url,{method:"POST",body:JSON.stringify({telefono:t})})).json();
+      telF=t;
+      if(r.ok&&r.encontrado){
+        nombres.value=r.personas;plazas.textContent=Math.min(12,Math.max(1,r.plazas));
+        sigue("¡Hola, "+r.saludo+"!","saludo script");
+      }else sigue("No hemos encontrado ese teléfono, pero no pasa nada: escribe tu nombre abajo.","saludo nota");
+    }catch(e){sigue("","saludo")}
+    telBtn.disabled=false;telBtn.textContent="Continuar";
+  });
+  telefono.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();telBtn.click()}});
+  document.getElementById("telNo").addEventListener("click",()=>{sigue("","saludo");nombres.focus()});
+  if(WEDDING.invitados.url)pideTel();
   rsvp.addEventListener("submit",async e=>{
     e.preventDefault();
     const asiste=valor("asiste"),quien=nombres.value.trim(),viene=asiste==="Si, allí estaré.";
@@ -851,7 +891,7 @@ const WEDDING={
       (asiste?nombres:rsvp.querySelector("input[name=asiste]")).focus();
       return;
     }
-    const F=WEDDING.forms,envios=[envia(F.asistencia,{asiste,nombres:quien})];
+    const F=WEDDING.forms,envios=[envia(F.asistencia,{asiste,nombres:quien+(telF?" ("+telF+")":"")})];
     if(viene){
       const bus=valor("bus");
       envios.push(envia(F.bus,{necesita:bus,plazas:bus==="Si."?plazas.textContent+" · "+quien:"0 · "+quien}));
@@ -874,7 +914,8 @@ const WEDDING={
   });
   document.getElementById("rsvpOtra").addEventListener("click",()=>{
     rsvp.reset();plazas.textContent="2";refresca();
-    ok.hidden=true;rsvp.hidden=false;nombres.focus();
+    ok.hidden=true;rsvp.hidden=false;
+    if(WEDDING.invitados.url)pideTel();else nombres.focus();
   });
 
   const FO=WEDDING.fotos,panelF=document.getElementById("fotosPanel"),btnF=document.getElementById("fotosBtn");
