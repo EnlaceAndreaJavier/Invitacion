@@ -635,7 +635,7 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
   </div>
 </section>
 
-<section class="section">
+<section class="section" id="recuerdos">
   <div class="cab rv">
     <img class="motivo" src="img/deco/vid.webp" alt="" loading="lazy">
     <span class="num">05</span>
@@ -796,7 +796,7 @@ const WEDDING={
       if(fin>=0)return;
     }
   })();
-  document.body.classList.add("locked");
+  if(location.hash==="#recuerdos")sobre.remove();else document.body.classList.add("locked");
   sobre.addEventListener("click",async()=>{
     await cargados;
     sobre.style.setProperty("--dura",cuadros.length/WEDDING.sobre.fps+"s");
@@ -885,6 +885,7 @@ const WEDDING={
     const a=!panelF.classList.contains("abierta");
     panelF.classList.toggle("abierta",a);panelF.inert=!a;btnF.setAttribute("aria-expanded",a);
   });
+  if(location.hash==="#recuerdos"){btnF.click();addEventListener("load",()=>btnF.scrollIntoView({block:"center"}))}
   const reduceF=async f=>{
     if(!f.type.startsWith("image/"))return {b:f,nombre:f.name};
     try{
