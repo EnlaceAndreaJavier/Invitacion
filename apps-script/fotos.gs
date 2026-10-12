@@ -7,6 +7,7 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
     return responde(d.accion === "trozo" ? trozo(d) : inicio(d));
   } catch (err) {
+    console.error(err);
     return responde({ ok: false, error: String(err) });
   }
 }
@@ -22,7 +23,8 @@ function inicio(d) {
     contentType: "application/json; charset=UTF-8",
     headers: { Authorization: "Bearer " + ScriptApp.getOAuthToken(), "X-Upload-Content-Type": d.tipo, "X-Upload-Content-Length": String(d.total) },
     payload: JSON.stringify({ name: nombre, parents: [carpeta] }),
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
+    followRedirects: false
   });
   if (r.getResponseCode() !== 200) throw new Error(r.getContentText());
   const h = r.getHeaders();
@@ -38,7 +40,8 @@ function trozo(d) {
     contentType: d.tipo,
     headers: { Authorization: "Bearer " + ScriptApp.getOAuthToken(), "Content-Range": "bytes " + d.inicio + "-" + fin + "/" + d.total },
     payload: bytes,
-    muteHttpExceptions: true
+    muteHttpExceptions: true,
+    followRedirects: false
   });
   const c = r.getResponseCode();
   if (c !== 308 && c !== 200 && c !== 201) throw new Error(c + " " + r.getContentText());
