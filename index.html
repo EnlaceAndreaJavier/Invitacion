@@ -581,8 +581,8 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
       <fieldset class="campo">
         <legend>¿Necesitaréis autobús desde Cuenca?</legend>
         <div class="opciones">
-          <label class="opcion"><input type="radio" name="bus" value="No" checked><span>No, gracias</span></label>
-          <label class="opcion"><input type="radio" name="bus" value="Si"><span>Sí</span></label>
+          <label class="opcion"><input type="radio" name="bus" value="No." checked><span>No, gracias</span></label>
+          <label class="opcion"><input type="radio" name="bus" value="Si."><span>Sí</span></label>
         </div>
         <div class="plegable" id="plazasBox" inert><div>
           <div class="plazas">
@@ -651,8 +651,8 @@ const WEDDING={
   sobre:{carpeta:"sobre/lazo",fps:36,lote:24},
   forms:{
     asistencia:{id:"1FAIpQLSc8TwRDAkiSFAQVRTCT-IHge0gYHwXuDMzc1symDXjN4iI_Sg",asiste:"entry.1099897512",nombres:"entry.1444914747"},
-    bus:{id:"1FAIpQLSeeJSKmGdsb6Be2gGhNvtdG95EEVZHMTBol4aTaBiDuDeQboQ",necesita:"",plazas:""},
-    alergias:{id:"1FAIpQLScDUCIibNcX_8h0-e5KvfrU26giXIwHJF2UXafh26ao721lhQ",detalle:"",menu:""}
+    bus:{id:"1FAIpQLSfZtEnK3cXLzgA0dzLK-KuXKvMQ04MjImhkj_m8cZWMGdsubA",necesita:"entry.1367109284",plazas:"entry.534012587"},
+    alergias:{id:"1FAIpQLSf7Xinc_n-pGEAWGiykKT-RMA-tjSf4jd5iAiX77G8W6y2Jxw",detalle:"entry.436622446",menu:"entry.752827208"}
   },
   photos:["img/foto-01.jpg","img/foto-02.jpg","img/foto-03.jpg","img/foto-04.jpg","img/foto-05.jpg","img/foto-06.jpg"]
 };
@@ -795,7 +795,7 @@ const WEDDING={
   const refresca=()=>{
     const viene=valor("asiste")==="Si, allí estaré.",falta=valor("asiste")==="No podré asistir.";
     pliega("siViene",viene);
-    pliega("plazasBox",viene&&valor("bus")==="Si");
+    pliega("plazasBox",viene&&valor("bus")==="Si.");
     pliega("alergiaBox",viene&&valor("alergia")==="Si");
     document.getElementById("nombresLbl").textContent=falta?"¿Quién eres?":"¿Quiénes asistirán?";
     document.getElementById("nombresNota").textContent=falta?"Tu nombre, para saber quién nos escribe":"Tu nombre y el de tus acompañantes";
@@ -818,7 +818,7 @@ const WEDDING={
     const F=WEDDING.forms,envios=[envia(F.asistencia,{asiste,nombres:quien})];
     if(viene){
       const bus=valor("bus");
-      envios.push(envia(F.bus,{necesita:bus,plazas:bus==="Si"?plazas.textContent+" · "+quien:"0 · "+quien}));
+      envios.push(envia(F.bus,{necesita:bus,plazas:bus==="Si."?plazas.textContent+" · "+quien:"0 · "+quien}));
       if(valor("alergia")==="Si")envios.push(envia(F.alergias,{
         detalle:(document.getElementById("alergias").value.trim()||"Sin detallar")+" · "+quien,
         menu:document.getElementById("menuAdaptado").value.trim()||"No"
