@@ -899,7 +899,7 @@ const WEDDING={
     const fs=[...entradaF.files];entradaF.value="";
     if(!fs.length)return;
     if(!FO.url){estadoF.textContent="La subida todavía no está activa.";return}
-    let hechas=0,fallos=0,grandes=0;
+    let hechas=0,fallos=0,grandes=0,detalle="";
     const barra=p=>{progresoF.firstChild.style.width=p*100+"%"};
     elegirF.classList.add("ocupado");progresoF.hidden=false;barra(0);
     for(const [n,f] of fs.entries()){
@@ -909,7 +909,7 @@ const WEDDING={
         const {b,nombre}=await reduceF(f);
         await subeF(b,nombre,p=>barra((n+p)/fs.length));
         hechas++;
-      }catch(e){fallos++}
+      }catch(e){fallos++;detalle=detalle||(e&&(e.error||e.message))||String(e)}
       barra((n+1)/fs.length);
     }
     elegirF.classList.remove("ocupado");
@@ -918,7 +918,8 @@ const WEDDING={
       hechas?"¡Gracias! "+plural(hechas,"archivo subido.","archivos subidos."):"",
       grandes?plural(grandes,"vídeo es demasiado largo; recórtalo o mándaselo a los novios.","vídeos son demasiado largos; recórtalos o mándaselos a los novios."):"",
       fallos?plural(fallos,"no se ha podido subir;","no se han podido subir;")+" vuelve a intentarlo con mejor cobertura.":"",
-      !grandes&&!fallos?"Puedes subir más cuando quieras.":""
+      !grandes&&!fallos?"Puedes subir más cuando quieras.":"",
+      detalle&&new URLSearchParams(location.search).has("fotos")?"Detalle: "+detalle:""
     ].filter(Boolean).join(" ");
   });
 
