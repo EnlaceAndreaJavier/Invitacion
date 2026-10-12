@@ -638,13 +638,13 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
   </div>
   <div class="extras rv d1">
     <button class="btn ghost" id="addCal">Guardar la fecha en mi calendario</button>
-    <a class="btn ghost" href="URL_PLAYLIST_SPOTIFY" target="_blank" rel="noopener">Pedir una canción para la fiesta</a>
+    <a class="btn ghost" href="https://open.spotify.com/playlist/3Md5ad21v97TUbFkrBeJi7?si=471ecb3e1950472a&amp;pt=c2c0831a618c6937991d059d4722c7af" target="_blank" rel="noopener">Pedir una canción para la fiesta</a>
     <button class="btn ghost" id="fotosBtn" aria-expanded="false" aria-controls="fotosPanel">Subir tus fotos del día</button>
     <div class="plegable" id="fotosPanel" inert><div>
-      <p class="nota" id="fotosCerrado">El álbum se abre el 25 de septiembre de 2027. Vuelve ese día y sube aquí tus fotos.</p>
+      <p class="nota" id="fotosCerrado">El álbum se abre el 25 de septiembre de 2027. Vuelve ese día y sube aquí tus fotos y vídeos.</p>
       <div class="fotos" id="fotos" hidden>
         <input type="text" id="fotosQuien" placeholder="Tu nombre (opcional)" autocomplete="name">
-        <label class="btn" id="fotosElegir">Elegir fotos<input type="file" id="fotosInput" accept="image/*" multiple hidden></label>
+        <label class="btn" id="fotosElegir">Elegir fotos o vídeos<input type="file" id="fotosInput" accept="image/*,video/*" multiple hidden></label>
         <div class="progreso" id="fotosProgreso" hidden><span></span></div>
         <p class="nota" id="fotosEstado" aria-live="polite"></p>
       </div>
@@ -666,7 +666,7 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
 const WEDDING={
   date:"2027-09-25T12:30:00+02:00",
   music:{src:"audio/cancion.mp3",title:"Nuestra canción"},
-  fotos:{url:"https://script.google.com/macros/s/AKfycbz0UkcUYikVPjFZ3ytPESvGzeS59ra1tgDNyx3YEJF9c1JBXgJAg8Sem-A64eQUxNU5/exec",abre:"2027-09-25T00:00:00+02:00",lado:2560},
+  fotos:{url:"https://script.google.com/macros/s/AKfycbz0UkcUYikVPjFZ3ytPESvGzeS59ra1tgDNyx3YEJF9c1JBXgJAg8Sem-A64eQUxNU5/exec",abre:"2027-09-25T00:00:00+02:00",lado:2560,trozo:8388608,maximo:524288000},
   sobre:{carpeta:"sobre/lazo",fps:36,lote:24},
   forms:{
     asistencia:{id:"1FAIpQLSc8TwRDAkiSFAQVRTCT-IHge0gYHwXuDMzc1symDXjN4iI_Sg",asiste:"entry.1099897512",nombres:"entry.1444914747"},
@@ -871,6 +871,7 @@ const WEDDING={
     panelF.classList.toggle("abierta",a);panelF.inert=!a;btnF.setAttribute("aria-expanded",a);
   });
   const reduceF=async f=>{
+    if(!f.type.startsWith("image/"))return {b:f,nombre:f.name};
     try{
       const img=await createImageBitmap(f,{imageOrientation:"from-image"});
       const k=Math.min(1,FO.lado/Math.max(img.width,img.height)),c=document.createElement("canvas");
@@ -881,24 +882,44 @@ const WEDDING={
     }catch(e){return {b:f,nombre:f.name}}
   };
   const base64F=b=>new Promise((ok,ko)=>{const r=new FileReader();r.onload=()=>ok(r.result.split(",")[1]);r.onerror=ko;r.readAsDataURL(b)});
+  const llamaF=async d=>{
+    const j=await(await fetch(FO.url,{method:"POST",body:JSON.stringify(d)})).json();
+    if(!j.ok)throw j;
+    return j;
+  };
+  const subeF=async(b,nombre,avance)=>{
+    const tipo=b.type||"image/jpeg";
+    const {sesion}=await llamaF({accion:"inicio",quien:document.getElementById("fotosQuien").value,nombre,tipo,total:b.size});
+    for(let i=0;i<b.size;i+=FO.trozo){
+      await llamaF({accion:"trozo",sesion,tipo,inicio:i,total:b.size,datos:await base64F(b.slice(i,i+FO.trozo))});
+      avance(Math.min(1,(i+FO.trozo)/b.size));
+    }
+  };
   entradaF.addEventListener("change",async()=>{
     const fs=[...entradaF.files];entradaF.value="";
     if(!fs.length)return;
-    if(!FO.url){estadoF.textContent="La subida de fotos todavía no está activa.";return}
-    let hechas=0,fallos=0;
-    elegirF.classList.add("ocupado");progresoF.hidden=false;progresoF.firstChild.style.width="0";
-    for(const f of fs){
-      estadoF.textContent="Subiendo "+(hechas+fallos+1)+" de "+fs.length+"…";
+    if(!FO.url){estadoF.textContent="La subida todavía no está activa.";return}
+    let hechas=0,fallos=0,grandes=0;
+    const barra=p=>{progresoF.firstChild.style.width=p*100+"%"};
+    elegirF.classList.add("ocupado");progresoF.hidden=false;barra(0);
+    for(const [n,f] of fs.entries()){
+      estadoF.textContent="Subiendo "+(n+1)+" de "+fs.length+"…";
+      if(f.size>FO.maximo){grandes++;continue}
       try{
         const {b,nombre}=await reduceF(f);
-        const r=await fetch(FO.url,{method:"POST",body:JSON.stringify({quien:document.getElementById("fotosQuien").value,nombre,tipo:b.type||"image/jpeg",datos:await base64F(b)})});
-        if(!(await r.json()).ok)throw 0;
+        await subeF(b,nombre,p=>barra((n+p)/fs.length));
         hechas++;
       }catch(e){fallos++}
-      progresoF.firstChild.style.width=(hechas+fallos)/fs.length*100+"%";
+      barra((n+1)/fs.length);
     }
     elegirF.classList.remove("ocupado");
-    estadoF.textContent=(hechas?"¡Gracias! "+hechas+(hechas>1?" fotos subidas.":" foto subida."):"")+(fallos?" "+fallos+(fallos>1?" no se han podido subir":" no se ha podido subir")+"; vuelve a intentarlo con mejor cobertura.":" Puedes subir más cuando quieras.");
+    const plural=(k,uno,varios)=>k+" "+(k>1?varios:uno);
+    estadoF.textContent=[
+      hechas?"¡Gracias! "+plural(hechas,"archivo subido.","archivos subidos."):"",
+      grandes?plural(grandes,"vídeo es demasiado largo; recórtalo o mándaselo a los novios.","vídeos son demasiado largos; recórtalos o mándaselos a los novios."):"",
+      fallos?plural(fallos,"no se ha podido subir;","no se han podido subir;")+" vuelve a intentarlo con mejor cobertura.":"",
+      !grandes&&!fallos?"Puedes subir más cuando quieras.":""
+    ].filter(Boolean).join(" ");
   });
 
   document.getElementById("addCal").addEventListener("click",()=>{
