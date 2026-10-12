@@ -206,10 +206,16 @@ p:last-child{margin-bottom:0}
 .fotos{display:grid;gap:.9rem;padding:.2rem 0 .4rem}
 .fotos[hidden]{display:none}
 .fotos .btn{cursor:pointer}
-.fotos .btn.ocupado{opacity:.6;pointer-events:none}
 .fotos .nota{margin:0;text-align:center}
 .progreso{height:3px;border-radius:3px;background:var(--line);overflow:hidden}
 .progreso span{display:block;width:0;height:100%;background:var(--gold);transition:width .3s ease}
+.subiendo{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:var(--gutter);background:rgba(31,37,25,.6);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);touch-action:none}
+.subiendo[hidden]{display:none}
+.subiendo>div{width:min(100%,24rem);display:grid;gap:.9rem;padding:2rem 1.6rem;border-radius:6px;background:var(--paper);text-align:center;box-shadow:0 24px 60px -24px rgba(0,0,0,.5)}
+.subiendo>div:focus{outline:0}
+.subiendo p{margin:0}
+.subiendo .cifra{font-family:var(--display);color:var(--gold);font-size:1.8rem;line-height:1}
+.subiendo .lede{font-size:.95rem}
 
 /* ---------- footer ---------- */
 footer{padding:var(--sec-y) var(--gutter) calc(env(safe-area-inset-bottom) + 3rem);text-align:center;position:relative;overflow:hidden}
@@ -645,13 +651,22 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
       <div class="fotos" id="fotos" hidden>
         <input type="text" id="fotosQuien" placeholder="Tu nombre (opcional)" autocomplete="name">
         <label class="btn" id="fotosElegir">Elegir fotos o vídeos<input type="file" id="fotosInput" accept="image/*,video/*" multiple hidden></label>
-        <div class="progreso" id="fotosProgreso" hidden><span></span></div>
         <p class="nota" id="fotosEstado" aria-live="polite"></p>
       </div>
     </div></div>
   </div>
   <p class="narrow lede rv d2" style="margin-top:1.8rem;font-size:.95rem">El álbum se abre el mismo día de la boda: lo que tú veas, nos lo quedamos nosotros.</p>
 </section>
+
+<div class="subiendo" id="subiendo" role="dialog" aria-modal="true" aria-labelledby="subiendoTit" hidden>
+  <div tabindex="-1">
+    <p class="script" id="subiendoTit">Subiendo recuerdos</p>
+    <p class="nota" id="subiendoQue"></p>
+    <div class="progreso"><span id="subiendoBarra"></span></div>
+    <p class="cifra" id="subiendoPct" aria-live="polite">0 %</p>
+    <p class="lede">No cierres esta página ni bloquees el móvil hasta que termine.</p>
+  </div>
+</div>
 
 <footer>
   <div class="corona rv"><img src="img/deco/corona.webp" alt="" loading="lazy"><span>A&amp;J</span></div>
@@ -666,7 +681,7 @@ footer .firma b{display:block;margin-top:.15rem;font-family:var(--serif);font-st
 const WEDDING={
   date:"2027-09-25T12:30:00+02:00",
   music:{src:"audio/cancion.mp3",title:"Nuestra canción"},
-  fotos:{url:"https://script.google.com/macros/s/AKfycbyoXKBzd8TVmjI-oWuhyV-6Ijid5jS9IO87NytKm_JbnViGnmHZjCpL2-2L-Bjg2Ete/exec",abre:"2027-09-25T00:00:00+02:00",lado:2560,trozo:8388608,maximo:524288000},
+  fotos:{url:"https://script.google.com/macros/s/AKfycbyoXKBzd8TVmjI-oWuhyV-6Ijid5jS9IO87NytKm_JbnViGnmHZjCpL2-2L-Bjg2Ete/exec",abre:"2027-09-25T00:00:00+02:00",lado:2560,trozo:4194304,maximo:524288000},
   sobre:{carpeta:"sobre/lazo",fps:36,lote:24},
   forms:{
     asistencia:{id:"1FAIpQLSc8TwRDAkiSFAQVRTCT-IHge0gYHwXuDMzc1symDXjN4iI_Sg",asiste:"entry.1099897512",nombres:"entry.1444914747"},
@@ -862,7 +877,7 @@ const WEDDING={
 
   const FO=WEDDING.fotos,panelF=document.getElementById("fotosPanel"),btnF=document.getElementById("fotosBtn");
   const entradaF=document.getElementById("fotosInput"),elegirF=document.getElementById("fotosElegir");
-  const estadoF=document.getElementById("fotosEstado"),progresoF=document.getElementById("fotosProgreso");
+  const estadoF=document.getElementById("fotosEstado"),modalF=document.getElementById("subiendo");
   const abiertoF=Date.now()>=new Date(FO.abre).getTime()||new URLSearchParams(location.search).has("fotos");
   document.getElementById("fotosCerrado").hidden=abiertoF;
   document.getElementById("fotos").hidden=!abiertoF;
@@ -900,10 +915,13 @@ const WEDDING={
     if(!fs.length)return;
     if(!FO.url){estadoF.textContent="La subida todavía no está activa.";return}
     let hechas=0,fallos=0,grandes=0,detalle="";
-    const barra=p=>{progresoF.firstChild.style.width=p*100+"%"};
-    elegirF.classList.add("ocupado");progresoF.hidden=false;barra(0);
+    const barra=p=>{const v=Math.round(p*100);document.getElementById("subiendoBarra").style.width=v+"%";document.getElementById("subiendoPct").textContent=v+" %"};
+    const salida=e=>{e.preventDefault();e.returnValue=""};
+    estadoF.textContent="";barra(0);
+    modalF.hidden=false;modalF.firstElementChild.focus();
+    document.body.classList.add("locked");addEventListener("beforeunload",salida);
     for(const [n,f] of fs.entries()){
-      estadoF.textContent="Subiendo "+(n+1)+" de "+fs.length+"…";
+      document.getElementById("subiendoQue").textContent=fs.length>1?"Archivo "+(n+1)+" de "+fs.length:"";
       if(f.size>FO.maximo){grandes++;continue}
       try{
         const {b,nombre}=await reduceF(f);
@@ -912,7 +930,8 @@ const WEDDING={
       }catch(e){fallos++;detalle=detalle||(e&&(e.error||e.message))||String(e)}
       barra((n+1)/fs.length);
     }
-    elegirF.classList.remove("ocupado");
+    removeEventListener("beforeunload",salida);
+    document.body.classList.remove("locked");modalF.hidden=true;
     const plural=(k,uno,varios)=>k+" "+(k>1?varios:uno);
     estadoF.textContent=[
       hechas?"¡Gracias! "+plural(hechas,"archivo subido.","archivos subidos."):"",
@@ -921,6 +940,7 @@ const WEDDING={
       !grandes&&!fallos?"Puedes subir más cuando quieras.":"",
       detalle&&new URLSearchParams(location.search).has("fotos")?"Detalle: "+detalle:""
     ].filter(Boolean).join(" ");
+    estadoF.scrollIntoView({block:"center"});
   });
 
   document.getElementById("addCal").addEventListener("click",()=>{
